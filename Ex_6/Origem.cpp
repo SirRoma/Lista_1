@@ -13,7 +13,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 int setupShader();
 int setupGeometry();
-int setupCirculo();
+GLuint generateCircle(float radius, int nPoints);
 
 const GLuint WIDTH = 800, HEIGHT = 600;
 
@@ -61,7 +61,10 @@ int main()
 
 	GLuint shaderID = setupShader();
 
-	GLuint VAO = setupGeometry();
+	float radius = 1;
+	int nPoints = 20;
+
+	GLuint VAO = generateCircle(radius,nPoints);
 
 
 	GLint colorLoc = glGetUniformLocation(shaderID, "inputColor");
@@ -78,6 +81,8 @@ int main()
 		glClearColor(0.8f, 0.8f, 0.8f, 1.0f); //cor de fundo
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		
+
 		glLineWidth(10);
 		glPointSize(20);
 
@@ -85,13 +90,13 @@ int main()
 		// Poligono Preenchido - GL_TRIANGLES
 		glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLE_FAN, 0, nPoints + 2);//trocar aqui para pacman
 
 		// Chamada de desenho - drawcall
 		// CONTORNO - GL_LINE_LOOP
 		// PONTOS - GL_POINTS
 		glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_POINTS, 0, 3);
+		glDrawArrays(GL_POINTS, 0, nPoints + 1);
 		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
@@ -150,23 +155,35 @@ int setupShader()
 	return shaderProgram;
 }
 
-int setupCirculo()
-{
-	GLfloat vertices[] = {
-		0.0, 0.6, 0.0,
-		-0.6, -0.5, 0.0,
-		0.6, 0.3, 0.0,
-	};
+GLuint generateCircle(float radius, int nPoints) {
+	int totalSize = (nPoints + 2) * 3;//trocar aqui para pacman
+	GLfloat* vertices = new GLfloat[totalSize];
+
+	float angle = 0.0;
+	GLfloat slice = ((2 * PI) / (float)nPoints);
+
+	vertices[0] = 0.0;
+	vertices[1] = 0.0;
+	vertices[2] = 0.0;
+
+	for (int i = 3; i < totalSize; i += 3) {
+		vertices[i] = radius * cos(angle);
+		vertices[i+1] = radius * sin(angle);
+		vertices[i + 2] = 0.0;
+
+		angle += slice;
+	}
+
 
 	GLuint VBO, VAO;
 
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, totalSize * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
 
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -176,7 +193,8 @@ int setupCirculo()
 	return VAO;
 }
 
-int setupGeometry()
+
+/*int setupGeometry()
 {
 	GLfloat vertices[] = {
 		0.0, 0.6, 0.0, 
@@ -200,4 +218,4 @@ int setupGeometry()
 	glBindVertexArray(0);
 
 	return VAO;
-}
+}*/
