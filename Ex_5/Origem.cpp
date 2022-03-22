@@ -38,7 +38,7 @@ void forma_triangulo(GLenum p,GLint colorLoc,GLuint VAO) {
 	glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f);
 	glBindVertexArray(VAO);
 	glDrawArrays(p, 0, 3);
-
+	glDrawArrays(p, 2, 5);
 }
 
 
@@ -46,7 +46,7 @@ void forma_contorno(GLenum p, GLint colorLoc, GLuint VAO) {
 
 	glUniform4f(colorLoc, 0.0f, 1.0f, 1.0f, 1.0f);
 	glBindVertexArray(VAO);
-	glDrawArrays(p, 0, 3);
+	glDrawArrays(p, 0, 5);
 	//glDrawArrays(p, 1, 3);
 	//glDrawArrays(p, 2, 3);		
 
@@ -56,7 +56,7 @@ void forma_pontos(GLenum p, GLint colorLoc, GLuint VAO) {
 
 	glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f);
 	glBindVertexArray(VAO);
-	glDrawArrays(p, 0, 3);
+	glDrawArrays(p, 0, 5);
 
 }
 
@@ -65,14 +65,16 @@ void forma_tudo(GLenum p[], GLint colorLoc, GLuint VAO) {
 	glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f);
 	glBindVertexArray(VAO);
 	glDrawArrays(p[0], 0, 3);
+	glDrawArrays(p[0], 2, 5);
 
 	glUniform4f(colorLoc, 0.0f, 1.0f, 1.0f, 1.0f);
 	glBindVertexArray(VAO);
 	glDrawArrays(p[1], 0, 3);
+	glDrawArrays(p[1], 0, 5);
 
 	glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f);
 	glBindVertexArray(VAO);
-	glDrawArrays(p[2], 0, 3);
+	glDrawArrays(p[2], 0, 5);
 }
 
 int exercicio = 0;//gambiarra
@@ -266,7 +268,9 @@ int setupGeometry()
 	GLfloat vertices[] = {
 		-0.5, -0.5, 0.0,
 		 0.5, -0.5, 0.0,
-		 0.0, 0.5, 0.0,
+		 0.0, 0.0, 0.0,
+		 -0.5, 0.5, 0.0,
+		 0.5, 0.5, 0.0,
 		 //outro triangulo vai aqui
 	};
 

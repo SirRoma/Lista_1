@@ -5,8 +5,6 @@
 #include <assert.h>
 #include <math.h>
 
-# define PI           3.14159265358979323846
-
 using namespace std;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -150,38 +148,12 @@ int setupShader()
 	return shaderProgram;
 }
 
-int setupCirculo()
-{
-	GLfloat vertices[] = {
-		0.0, 0.6, 0.0,
-		-0.6, -0.5, 0.0,
-		0.6, 0.3, 0.0,
-	};
-
-	GLuint VBO, VAO;
-
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glBindVertexArray(0);
-
-	return VAO;
-}
-
 int setupGeometry()
 {
 	GLfloat vertices[] = {
-		0.0, 0.6, 0.0, 
-		-0.6, -0.5, 0.0, 
-		0.6, 0.3, 0.0, 
+		0.0, 0.6, 0.0, 0.1, 0.0, 0.0,
+		-0.6, -0.5, 0.0, 0.0, 1.0, 0.0,
+		0.6, 0.3, 0.0, 0.0, 0.0, 1.0,
 	};
 
 	GLuint VBO, VAO;
