@@ -80,15 +80,22 @@ int main()
 
 		// Chamada de desenho - drawcall
 		// Poligono Preenchido - GL_TRIANGLES
-		glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
+		glUniform4f(colorLoc, 0.0f, 0.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
+		//glColor3f(0.0f, 1.0f, 1.0f);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_LINE_LOOP, 0, 3);
+
+
 
 		// Chamada de desenho - drawcall
 		// CONTORNO - GL_LINE_LOOP
 		// PONTOS - GL_POINTS
-		glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_POINTS, 0, 3);
+		glUniform4f(colorLoc, 1.0f, 0.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
+		glDrawArrays(GL_POINTS, 0, 1);
+		glUniform4f(colorLoc, 0.0f, 1.0f, 0.0f, 1.0f);
+		glDrawArrays(GL_POINTS, 1, 2);
+		glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f);
+		glDrawArrays(GL_POINTS, 2, 3);
 		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
