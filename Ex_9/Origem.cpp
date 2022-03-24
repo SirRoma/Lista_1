@@ -44,7 +44,7 @@ int main()
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 
-	} 
+	}
 
 	const GLubyte* renderer = glGetString(GL_RENDERER);
 	const GLubyte* version = glGetString(GL_VERSION);
@@ -152,7 +152,7 @@ int setupGeometry()
 	GLfloat vertices[] = {
 		0.0, 0.6, 0.0, 0.1, 0.0, 0.0,
 		-0.6, -0.5, 0.0, 0.0, 1.0, 0.0,
-		0.6, -0.3, 0.0, 0.0, 0.0, 1.0,
+		0.6, 0.3, 0.0, 0.0, 0.0, 1.0,
 	};
 
 	GLuint VBO, VAO;
